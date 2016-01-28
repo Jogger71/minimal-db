@@ -36,7 +36,7 @@ class Query {
 	 * @return string
 	 * @since 1.0.0
 	 */
-	public function generateSelectQuery( $table, $columns = '*', $where = array() ) {
+	public static function generateSelectQuery( $table, $columns = '*', $where = array() ) {
 		if ( is_array( $columns ) ) {
 			$columnString = implode( ', ', $columns );
 		} else  {
@@ -63,7 +63,7 @@ class Query {
 	 * @return string
 	 * @since 1.0.0
 	 */
-	public function generateInsertQuery( $data, $table ) {
+	public static function generateInsertQuery( $data, $table ) {
 		$columns = array();
 		$values = array();
 
@@ -93,7 +93,7 @@ class Query {
 	 * @return string
 	 * @since 1.0.0
 	 */
-	public function generateUpdateQuery( $data, $table, $where = array() ) {
+	public static function generateUpdateQuery( $data, $table, $where = array() ) {
 		$setValues = array();
 
 		foreach( $data as $k => $v ) {
@@ -122,7 +122,7 @@ class Query {
 	 * @return string
 	 * @since 1.0.0
 	 */
-	public function generateDeleteQuery( $table, $where ) {
+	public static function generateDeleteQuery( $table, $where ) {
 		$deleteQuery = sprintf( 'DELETE FROM %s', $table );
 
 		if ( ! empty( $where ) ) {
@@ -142,7 +142,7 @@ class Query {
 	 * @return string
 	 * @since 1.0.0
 	 */
-	public function generateWhere( $where ) {
+	private static function generateWhere( $where ) {
 		$whereStrings = array();
 
 		foreach ( $where as $key => $value ) {
