@@ -46,7 +46,7 @@ class Query {
 		$selectQuery = "SELECT $columnString FROM $table";
 
 		if ( ! empty( $where ) ) {
-			$whereString = $this->generateWhere( $where );
+			$whereString = self::generateWhere( $where );
 			$selectQuery .= " WHERE $whereString";
 		}
 
@@ -105,7 +105,7 @@ class Query {
 		$updateQuery = sprintf( 'UPDATE %1$s SET %2$s', $table, $setValuesString );
 
 		if ( ! empty( $where ) ) {
-			$whereString = $this->generateWhere( $where );
+			$whereString = self::generateWhere( $where );
 			$updateQuery .= " WHERE $whereString";
 		}
 
@@ -126,7 +126,7 @@ class Query {
 		$deleteQuery = sprintf( 'DELETE FROM %s', $table );
 
 		if ( ! empty( $where ) ) {
-			$whereString = $this->generateWhere( $where );
+			$whereString = self::generateWhere( $where );
 			$deleteQuery .= " WHERE $whereString";
 		}
 
