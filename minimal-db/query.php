@@ -8,25 +8,9 @@
  * @since 1.0.0
  */
 
+namespace MinimalDB\Query;
+
 class Query {
-	/**
-	 * The final query string
-	 *
-	 * @var string $query
-	 * @since 1.0.0
-	 */
-	private $query;
-
-	/**
-	 * Returns the query
-	 *
-	 * @return string
-	 * @since 1.0.0
-	 */
-	public function getQuery() {
-		return $this->query;
-	}
-
 	/**
 	 * Generates a SELECT query
 	 *
@@ -146,11 +130,7 @@ class Query {
 		$whereStrings = array();
 
 		foreach ( $where as $key => $value ) {
-			if ( is_string( $value ) ) {
-				$whereStrings[] = sprintf( '%1$s="%2$s"', $key, $value );
-			} else {
-				$whereStrings[] = sprintf( '%1$s=%2$s', $key, $value );
-			}
+			$whereStrings[] = is_string( $value ) ? sprintf( '%1$s="%2$s"', $key, $value ) : sprintf( '%1$s=%2$s', $key, $value );
 		}
 
 		$whereQuery = implode( ' AND ', $whereStrings );
