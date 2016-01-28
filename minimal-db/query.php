@@ -18,32 +18,6 @@ class Query {
 	private $query;
 
 	/**
-	 * Class constructor
-	 *
-	 * @param string $type
-	 * @param string $table
-	 * @param array $data
-	 * @param array $where
-	 * @since 1.0.0
-	 */
-	public function __construct( $type, $table, $data, $where = array() ) {
-		switch ( $type ) {
-			case 'select':
-				$this->query = $this->generateSelectQuery( $table, $data, $where );
-				break;
-			case 'insert':
-				$this->query = $this->generateInsertQuery( $data, $table );
-				break;
-			case 'update':
-				$this->query = $this->generateUpdateQuery( $data, $table, $where );
-				break;
-			case 'delete':
-				$this->query = $this->generateDeleteQuery( $table, $data );
-				break;
-		}
-	}
-
-	/**
 	 * Returns the query
 	 *
 	 * @return string
