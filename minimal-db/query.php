@@ -8,8 +8,6 @@
  * @since 1.0.0
  */
 
-namespace MinimalDB\Query;
-
 class Query {
 	/**
 	 * Generates a SELECT query
