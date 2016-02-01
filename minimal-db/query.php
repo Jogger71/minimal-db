@@ -10,26 +10,60 @@
 
 class Query {
 	/**
+	 * Stores the value of the generated Query
+	 *
+	 * @var string $query
+	 * @since 1.1.0
+	 */
+	private $query;
+
+	/**
+	 * Stores the query type
+	 *
+	 * @var string $queryType
+	 * @since 1.1.0
+	 */
+	private $queryType;
+
+	/**
+	 * Class Constructor
+	 *
+	 * @param string $queryType
+	 * @since 1.1.0
+	 */
+	public function __construct( $queryType ) {
+		if (
+		  $queryType === 'select'
+		  || $queryType === 'insert'
+		  || $queryType === 'update'
+		  || $queryType === 'delete'
+		) {
+			$this->queryType = $queryType;
+		}
+	}
+
+	/**
 	 * Generates a SELECT query
 	 *
 	 * @param array|string $columns
 	 * @param string $table
 	 * @param array $where
+	 * @param string $schema
 	 * @return string
 	 * @since 1.0.0
 	 */
-	public static function generateSelectQuery( $table, $columns = '*', $where = array() ) {
+	public static function generateSelectQuery( $table, $columns = '*', $where = array(), $schema ) {
 		if ( is_array( $columns ) ) {
 			$columnString = implode( ', ', $columns );
 		} else  {
 			$columnString = $columns;
 		}
 
-		$selectQuery = "SELECT $columnString FROM $table";
+		$selectQuery = sprintf( 'SELECT %1$s FROM %2$s', $columnString, $table );
 
 		if ( ! empty( $where ) ) {
 			$whereString = self::generateWhere( $where );
-			$selectQuery .= " WHERE $whereString";
+			$selectQuery .= sprintf( ' WHERE %s', $whereString );
 		}
 
 		$selectQuery .= ";";
@@ -52,7 +86,7 @@ class Query {
 		foreach( $data as $k => $v ) {
 			$columns[] = $k;
 			if ( is_string( $v ) ) {
-				$values[] = '"' . $v . '"';
+				$values[] = sprintf( "'%s'", $v );
 			} else {
 				$values[] = $v;
 			}
@@ -134,5 +168,16 @@ class Query {
 		$whereQuery = implode( ' AND ', $whereStrings );
 
 		return $whereQuery;
+	}
+
+	/**
+	 * Generates the list of columns including their schemas
+	 *
+	 * @param string $schema
+	 * @param array $columns
+	 * @since 1.1.0
+	 */
+	private static function generateSchemaString( $schema, $columns ) {
+
 	}
 }
